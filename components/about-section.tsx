@@ -1,7 +1,12 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import Image from "next/image"
+
+const skills = [
+  { category: "Languages", items: ["HTML", "CSS", "JavaScript", "PHP", "TypeScript", "MySQL"] },
+  { category: "Frameworks", items: ["Bootstrap", "Chart.js", "Git"] },
+  { category: "Core Skills", items: ["Web Development", "Database Management", "UI/UX Design"] },
+]
 
 export function AboutSection() {
   const [isVisible, setIsVisible] = useState(false)
@@ -25,41 +30,40 @@ export function AboutSection() {
   }, [])
 
   return (
-    <section id="about" ref={sectionRef} className="py-24 md:py-32 lg:py-40 px-6 lg:px-12 bg-secondary/30">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16 lg:gap-24 items-center">
-          <div className={`space-y-6 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-light tracking-tight">About</h2>
-            <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
-              <p>
-                I'm a designer who believes that great work emerges from the intersection of curiosity, craft, and
-                collaboration. With over a decade of experience, I've had the privilege of working with brands and
-                individuals who share a commitment to thoughtful, meaningful design.
-              </p>
-              <p>
-                My approach is rooted in listening—understanding not just what clients want, but why they want it. This
-                empathy-driven process allows me to create work that resonates on both emotional and functional levels.
-              </p>
-              <p>
-                When I'm not designing, you'll find me exploring art galleries, reading philosophy, or experimenting
-                with analog photography. These pursuits inform my work, reminding me that the best design often comes
-                from unexpected places.
-              </p>
-            </div>
-            <div className="pt-4 space-y-2">
-              <div className="text-sm text-muted-foreground">Currently based in</div>
-              <div className="text-xl font-light">San Francisco, California</div>
-            </div>
-          </div>
+    <section id="about" ref={sectionRef} className="py-24 md:py-32 lg:py-40 px-6 lg:px-12 bg-black">
+      <div className="max-w-7xl mx-auto">
+        <div className={`text-center mb-16 md:mb-24 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}>
+          <h2 className="text-sm tracking-[0.3em] text-white/60 uppercase mb-4">Skills</h2>
+          <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">TECHNICAL EXPERTISE</h3>
+        </div>
 
-          <div
-            className={`relative aspect-[3/4] rounded-sm overflow-hidden bg-secondary ${
-              isVisible ? "animate-fade-in-up" : "opacity-0"
-            }`}
-            style={{ animationDelay: "200ms" }}
-          >
-            <Image src="/professional-portrait-photo-minimal-aesthetic.jpg" alt="Portrait" fill className="object-cover" />
-          </div>
+        <div className="grid md:grid-cols-3 gap-12 md:gap-16">
+          {skills.map((skillGroup, index) => (
+            <div
+              key={index}
+              className={`space-y-6 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
+              style={{ animationDelay: `${index * 150}ms` }}
+            >
+              <h4 className="text-2xl font-bold text-yellow-500">{skillGroup.category}</h4>
+              <ul className="space-y-3">
+                {skillGroup.items.map((item, itemIndex) => (
+                  <li key={itemIndex} className="text-white/80 text-lg">
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div
+          className={`mt-20 md:mt-28 text-center max-w-3xl mx-auto ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
+          style={{ animationDelay: "450ms" }}
+        >
+          <p className="text-xl text-white/70 leading-relaxed">
+            Motivated to apply technical expertise and grow in a web development role. Committed to continuous learning
+            and delivering high-quality solutions that make a difference.
+          </p>
         </div>
       </div>
     </section>

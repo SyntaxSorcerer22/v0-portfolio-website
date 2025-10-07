@@ -4,32 +4,31 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Minimal, elegant color palette inspired by Silvia Sguotti */
-  --background: oklch(0.99 0.002 85);
-  --foreground: oklch(0.22 0.008 85);
-  --card: oklch(0.99 0.002 85);
-  --card-foreground: oklch(0.22 0.008 85);
-  --popover: oklch(0.99 0.002 85);
-  --popover-foreground: oklch(0.22 0.008 85);
-  --primary: oklch(0.25 0.01 85);
-  --primary-foreground: oklch(0.99 0.002 85);
-  --secondary: oklch(0.95 0.005 85);
-  --secondary-foreground: oklch(0.25 0.01 85);
-  --muted: oklch(0.96 0.004 85);
-  --muted-foreground: oklch(0.48 0.008 85);
-  --accent: oklch(0.75 0.04 35);
-  --accent-foreground: oklch(0.22 0.008 85);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.99 0.002 85);
-  --border: oklch(0.9 0.006 85);
-  --input: oklch(0.9 0.006 85);
-  --ring: oklch(0.48 0.008 85);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.25rem;
+  --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -76,8 +75,6 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -123,12 +120,9 @@
   body {
     @apply bg-background text-foreground;
   }
-
-  /* Custom smooth scrolling and refined typography */
   html {
     scroll-behavior: smooth;
   }
-
   h1,
   h2,
   h3,
@@ -137,14 +131,13 @@
   h6 {
     @apply text-balance;
   }
-
   p {
     @apply text-pretty;
   }
 }
 
-/* Custom animations for elegant transitions */
-@keyframes fadeInUp {
+/* Adding custom smooth animations and transitions */
+@keyframes fade-in-up {
   from {
     opacity: 0;
     transform: translateY(30px);
@@ -155,7 +148,7 @@
   }
 }
 
-@keyframes fadeIn {
+@keyframes fade-in {
   from {
     opacity: 0;
   }
@@ -164,10 +157,65 @@
   }
 }
 
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .animate-fade-in-up {
-  animation: fadeInUp 0.8s ease-out forwards;
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
+  animation: fade-in 1s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Smooth transitions for interactive elements */
+.transition-smooth {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Parallax effect helper */
+.parallax {
+  will-change: transform;
 }

@@ -1,126 +1,120 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight } from "lucide-react"
 
 const projects = [
   {
-    id: "brand-identity-studio",
-    title: "Brand Identity Studio",
-    category: "Branding",
-    year: "2024",
-    image: "/minimal-brand-identity-design-studio-workspace.jpg",
-    description: "Complete brand identity system for a creative studio",
+    id: "document-routing-system",
+    title: "Document Routing System",
+    category: "Full Stack Development",
+    year: "2024-2025",
+    image: "/project-document-routing.jpg",
+    description: "Web-based system for PSA to streamline document workflows",
   },
   {
-    id: "digital-wellness-app",
-    title: "Digital Wellness App",
-    category: "Product Design",
-    year: "2024",
-    image: "/minimal-wellness-app-interface-design.jpg",
-    description: "Mobile app promoting mindful technology use",
+    id: "inventory-management",
+    title: "Inventory Management System",
+    category: "Full Stack Development",
+    year: "2024-2025",
+    image: "/project-inventory-management.jpg",
+    description: "Complete CRUD system with real-time inventory tracking",
   },
   {
-    id: "sustainable-fashion",
-    title: "Sustainable Fashion",
-    category: "Web Design",
-    year: "2023",
-    image: "/elegant-sustainable-fashion-website.jpg",
-    description: "E-commerce platform for ethical fashion brand",
-  },
-  {
-    id: "architecture-portfolio",
-    title: "Architecture Portfolio",
-    category: "Editorial",
-    year: "2023",
-    image: "/minimal-architecture-portfolio-layout.jpg",
-    description: "Print and digital portfolio for architecture firm",
-  },
-  {
-    id: "meditation-experience",
-    title: "Meditation Experience",
-    category: "UX Design",
-    year: "2023",
-    image: "/calm-meditation-app-interface.jpg",
-    description: "Immersive digital meditation platform",
-  },
-  {
-    id: "artisan-marketplace",
-    title: "Artisan Marketplace",
-    category: "Platform Design",
-    year: "2022",
-    image: "/elegant-artisan-marketplace-website.jpg",
-    description: "Connecting local artisans with conscious consumers",
+    id: "budget-wise",
+    title: "Budget-Wise Application",
+    category: "Full Stack Development",
+    year: "2024-2025",
+    image: "/project-budget-wise.jpg",
+    description: "Financial tracking app with interactive charts",
   },
 ]
 
 export function WorkSection() {
-  const [isVisible, setIsVisible] = useState(false)
+  const [visibleItems, setVisibleItems] = useState<number[]>([])
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const sectionRef = useRef<HTMLElement>(null)
+  const headerRef = useRef<HTMLDivElement>(null)
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            if (entry.target === headerRef.current) {
+              setVisibleItems((prev) => (prev.includes(-1) ? prev : [-1, ...prev]))
+            } else {
+              const index = itemRefs.current.indexOf(entry.target as HTMLDivElement)
+              if (index !== -1 && !visibleItems.includes(index)) {
+                setVisibleItems((prev) => [...prev, index])
+              }
+            }
+          }
+        })
       },
-      { threshold: 0.1 },
+      { threshold: 0.2 },
     )
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
+    if (headerRef.current) observer.observe(headerRef.current)
+    itemRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref)
+    })
 
     return () => observer.disconnect()
-  }, [])
+  }, [visibleItems])
 
   return (
-    <section id="work" ref={sectionRef} className="py-32 md:py-40 lg:py-48 px-6 lg:px-12">
+    <section id="work" ref={sectionRef} className="py-16 sm:py-24 md:py-32 lg:py-40 px-6 lg:px-12 bg-black">
       <div className="max-w-7xl mx-auto">
-        <div className={`mb-20 md:mb-28 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-light tracking-[0.08em] mb-8">Selected Work</h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
-            A collection of projects exploring the intersection of design, technology, and human experience
-          </p>
+        <div
+          ref={headerRef}
+          className={`text-center mb-12 sm:mb-16 md:mb-24 ${visibleItems.includes(-1) ? "animate-fade-in-up" : "opacity-0"}`}
+        >
+          <h2 className="text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-white/60 uppercase mb-4">
+            Repertoire
+          </h2>
+          <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight px-4">
+            RAYMER SURIO HAS BUILT MULTIPLE WEB APPLICATIONS
+          </h3>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 md:gap-16 lg:gap-20">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-12">
           {projects.map((project, index) => (
-            <Link
+            <div
               key={project.id}
-              href={`/work/${project.id}`}
-              className={`group ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
-              style={{ animationDelay: `${index * 100}ms` }}
+              ref={(el) => {
+                itemRefs.current[index] = el
+              }}
+              className={`group cursor-pointer ${visibleItems.includes(index) ? "animate-scale-in" : "opacity-0"}`}
+              style={{ animationDelay: `${index * 150}ms` }}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
-              <div className="space-y-6">
-                <div className="relative aspect-[3/2] overflow-hidden bg-secondary/50 rounded-sm">
+              <div className="space-y-4 sm:space-y-6">
+                <div className="relative aspect-[3/4] overflow-hidden bg-zinc-900 rounded-sm">
                   <Image
                     src={project.image || "/placeholder.svg"}
                     alt={project.title}
                     fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="object-cover transition-all duration-700 ease-out group-hover:scale-110"
                   />
+                  <div
+                    className={`absolute inset-0 bg-black/60 flex items-center justify-center transition-opacity duration-500 ${
+                      hoveredIndex === index ? "opacity-100" : "opacity-0"
+                    }`}
+                  >
+                    <span className="text-yellow-500 text-sm tracking-widest uppercase font-bold">View Project</span>
+                  </div>
                 </div>
-                <div className="space-y-3">
-                  <h3 className="text-2xl md:text-3xl font-light tracking-tight group-hover:text-accent transition-colors">
+                <div className="space-y-2">
+                  <h4 className="text-lg sm:text-xl md:text-2xl font-bold text-white group-hover:text-yellow-500 transition-colors duration-300">
                     {project.title}
-                  </h3>
-                  <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                    <span>{project.category}</span>
-                    <span>•</span>
-                    <span>{project.year}</span>
-                  </div>
-                  <p className="text-muted-foreground leading-relaxed">{project.description}</p>
-                  <div className="flex items-center gap-2 text-sm font-light text-foreground group-hover:text-accent transition-colors pt-2">
-                    <span>Discover</span>
-                    <ArrowRight className="h-4 w-4" />
-                  </div>
+                  </h4>
+                  <p className="text-xs sm:text-sm text-white/70 leading-relaxed">{project.description}</p>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>

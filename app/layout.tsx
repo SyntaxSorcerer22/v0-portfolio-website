@@ -8,8 +8,9 @@ import { Navigation } from "@/components/navigation"
 import { Suspense } from "react"
 
 export const metadata: Metadata = {
-  title: "Portfolio — Creative Designer",
-  description: "Minimal, elegant portfolio showcasing design work and creative philosophy",
+  title: "Raymer Surio — Full Stack Developer",
+  description:
+    "Portfolio of Raymer Surio, a full stack web developer specializing in responsive applications and user-friendly interfaces",
   generator: "v0.app",
 }
 
@@ -19,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>
         <Suspense fallback={<div>Loading...</div>}>
           <Navigation />

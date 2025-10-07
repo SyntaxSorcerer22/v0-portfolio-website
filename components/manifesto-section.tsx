@@ -2,24 +2,6 @@
 
 import { useEffect, useRef, useState } from "react"
 
-const manifestoItems = [
-  {
-    title: "Design is storytelling",
-    description:
-      "Every project tells a story. I believe in creating narratives that resonate deeply with audiences, transforming abstract ideas into tangible, emotional experiences.",
-  },
-  {
-    title: "Simplicity reveals truth",
-    description:
-      "The most powerful designs are often the simplest. By removing the unnecessary, we reveal what truly matters and create clarity in a complex world.",
-  },
-  {
-    title: "Details define excellence",
-    description:
-      "Excellence lives in the details. From typography to transitions, every element is carefully considered to create cohesive, refined experiences.",
-  },
-]
-
 export function ManifestoSection() {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
@@ -42,27 +24,39 @@ export function ManifestoSection() {
   }, [])
 
   return (
-    <section id="manifesto" ref={sectionRef} className="py-24 md:py-32 lg:py-40 px-6 lg:px-12 bg-secondary/30">
-      <div className="max-w-6xl mx-auto">
-        <div className={`mb-16 md:mb-24 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-light tracking-tight mb-6">Design Philosophy</h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed">
-            Three principles that guide every creative decision
-          </p>
-        </div>
+    <section id="manifesto" ref={sectionRef} className="py-16 sm:py-24 md:py-32 lg:py-40 px-6 lg:px-12 bg-black">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 md:gap-16 lg:gap-24">
+          <div className={`${isVisible ? "animate-slide-in-left" : "opacity-0"}`}>
+            <h2 className="text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-white/60 uppercase mb-4 sm:mb-6">
+              Biography & Awards
+            </h2>
+            <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6 sm:mb-8">
+              ONE OF THE RISING FULL STACK WEB DEVELOPERS
+            </h3>
+          </div>
 
-        <div className="grid md:grid-cols-3 gap-12 md:gap-8 lg:gap-12">
-          {manifestoItems.map((item, index) => (
-            <div
-              key={index}
-              className={`space-y-4 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
-              style={{ animationDelay: `${index * 150}ms` }}
-            >
-              <div className="text-sm font-mono text-accent">0{index + 1}</div>
-              <h3 className="text-2xl md:text-3xl font-light tracking-tight leading-tight">{item.title}</h3>
-              <p className="text-muted-foreground leading-relaxed">{item.description}</p>
-            </div>
-          ))}
+          <div
+            className={`space-y-4 sm:space-y-6 text-sm sm:text-base text-white/80 leading-relaxed ${isVisible ? "animate-slide-in-right" : "opacity-0"}`}
+            style={{ animationDelay: "200ms" }}
+          >
+            <p className="transition-smooth hover:text-white">
+              Raymer Surio is a recent BSIT graduate with hands-on experience in full stack web development and system
+              design. His journey began at the University of Eastern Philippines, where he developed a passion for
+              creating responsive web applications and intuitive user interfaces.
+            </p>
+            <p className="transition-smooth hover:text-white">
+              Throughout his academic career, Raymer has demonstrated exceptional skills in building complete systems,
+              from database architecture to front-end interfaces. His capstone project, a Document Routing System for
+              PSA, showcased his ability to streamline complex workflows through elegant technical solutions.
+            </p>
+            <p className="transition-smooth hover:text-white">
+              With expertise in HTML, CSS, JavaScript, PHP, TypeScript, and MySQL, combined with frameworks like
+              Bootstrap and Chart.js, Raymer brings a comprehensive skill set to every project. His internship at the
+              National Irrigation Administration - Region VIII further refined his professional development skills and
+              team collaboration abilities.
+            </p>
+          </div>
         </div>
       </div>
     </section>

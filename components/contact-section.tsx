@@ -1,13 +1,13 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Mail, Linkedin, Instagram, Twitter } from "lucide-react"
+import { Mail, Linkedin, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const socialLinks = [
   {
     name: "Email",
-    href: "mailto:hello@portfolio.com",
+    href: "mailto:surioraymer96@gmail.com",
     icon: Mail,
   },
   {
@@ -16,14 +16,9 @@ const socialLinks = [
     icon: Linkedin,
   },
   {
-    name: "Instagram",
-    href: "https://instagram.com",
-    icon: Instagram,
-  },
-  {
-    name: "Twitter",
-    href: "https://twitter.com",
-    icon: Twitter,
+    name: "GitHub",
+    href: "https://github.com",
+    icon: Github,
   },
 ]
 
@@ -49,53 +44,66 @@ export function ContactSection() {
   }, [])
 
   return (
-    <section id="contact" ref={sectionRef} className="py-24 md:py-32 lg:py-40 px-6 lg:px-12">
-      <div className="max-w-4xl mx-auto text-center space-y-12">
-        <div className={`space-y-6 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-light tracking-tight">Let's Create Together</h2>
-          <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            I'm always interested in hearing about new projects and opportunities. Whether you have a question or just
-            want to say hello, I'll do my best to get back to you.
-          </p>
+    <section
+      id="contact"
+      ref={sectionRef}
+      className="py-16 sm:py-24 md:py-32 lg:py-40 px-6 lg:px-12 bg-black border-t border-white/10"
+    >
+      <div className="max-w-4xl mx-auto text-center space-y-8 sm:space-y-12">
+        <div className={`space-y-4 sm:space-y-6 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}>
+          <h2 className="text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-white/60 uppercase">
+            Next Project
+          </h2>
+          <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight px-4">
+            LET'S BUILD SOMETHING TOGETHER
+          </h3>
         </div>
 
-        <div className={`${isVisible ? "animate-fade-in-up" : "opacity-0"}`} style={{ animationDelay: "200ms" }}>
-          <Button size="lg" asChild className="text-lg px-8 py-6">
-            <a href="mailto:hello@portfolio.com">Get in Touch</a>
+        <div className={`${isVisible ? "animate-scale-in" : "opacity-0"}`} style={{ animationDelay: "200ms" }}>
+          <Button
+            size="lg"
+            asChild
+            className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/50"
+          >
+            <a href="mailto:surioraymer96@gmail.com">GET IN TOUCH</a>
           </Button>
         </div>
 
         <div
-          className={`flex items-center justify-center gap-6 pt-8 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
+          className={`flex items-center justify-center gap-6 sm:gap-8 pt-6 sm:pt-8 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
           style={{ animationDelay: "400ms" }}
         >
-          {socialLinks.map((link) => (
+          {socialLinks.map((link, index) => (
             <a
               key={link.name}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted-foreground hover:text-accent transition-colors"
+              className="text-white/60 hover:text-yellow-500 transition-all duration-300 hover:scale-125"
               aria-label={link.name}
+              style={{ animationDelay: `${400 + index * 100}ms` }}
             >
-              <link.icon className="h-5 w-5" />
+              <link.icon className="h-5 w-5 sm:h-6 sm:w-6" />
             </a>
           ))}
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="max-w-6xl mx-auto mt-24 pt-12 border-t border-border">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-          <div>© 2025 Portfolio. All rights reserved.</div>
-          <div className="flex items-center gap-6">
-            <a href="#" className="hover:text-foreground transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="hover:text-foreground transition-colors">
-              Terms of Service
-            </a>
+      <footer className="max-w-7xl mx-auto mt-16 sm:mt-24 pt-8 sm:pt-12 border-t border-white/10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
+          <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white text-center md:text-left">
+            Raymer
+            <br />
+            Surio
           </div>
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 md:gap-8 text-xs sm:text-sm text-white/60 text-center">
+            <span>Northern Samar, Philippines</span>
+            <span className="hidden sm:inline">•</span>
+            <span>0946 003 647</span>
+          </div>
+        </div>
+        <div className="text-center mt-6 sm:mt-8 text-xs sm:text-sm text-white/40">
+          © 2025 Raymer Surio. Portfolio designed with passion.
         </div>
       </footer>
     </section>
